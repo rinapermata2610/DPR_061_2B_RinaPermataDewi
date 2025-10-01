@@ -6,13 +6,16 @@ class Dashboard extends BaseController
 {
     public function index()
     {
-        if (! session()->get('isLoggedIn')) {
-            return redirect()->to('/login');
-        }
+        // Ambil data dari session
+        $username = session()->get('username');
+        $role     = session()->get('role');
 
-        return view('dashboard/index', [
-            'title' => 'Dashboard',
-            'user'  => session()->get()
-        ]);
+        $data = [
+            'title'    => 'Dashboard',
+            'username' => $username,
+            'role'     => $role
+        ];
+
+        return view('dashboard/index', $data);
     }
 }
