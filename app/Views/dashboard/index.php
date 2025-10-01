@@ -9,13 +9,14 @@
       <h2 class="fw-bold">Selamat Datang, <?= esc($username) ?>!</h2>
       <p class="lead mb-0">
         Anda login sebagai <strong><?= esc($role) ?></strong>.  
-        Website ini untuk mengelola data transparansi gaji DPR.
+        Website ini digunakan untuk mengelola data transparansi gaji DPR.
       </p>
     </div>
   </div>
 
   <!-- Menu Cards -->
   <div class="row g-4">
+    <!-- Anggota DPR -->
     <div class="col-md-4">
       <div class="card border-0 shadow-sm h-100 hover-card">
         <div class="card-body text-center">
@@ -26,26 +27,51 @@
       </div>
     </div>
 
+    <!-- Komponen Gaji -->
     <div class="col-md-4">
       <div class="card border-0 shadow-sm h-100 hover-card">
         <div class="card-body text-center">
           <h5 class="card-title fw-bold">Komponen Gaji</h5>
           <p class="text-muted">Atur rincian gaji, tunjangan, dan fasilitas.</p>
-          <a href="#" class="btn btn-gradient w-100">Kelola</a>
+          <a href="<?= site_url('admin/komponen') ?>" class="btn btn-gradient w-100">Kelola</a>
         </div>
       </div>
     </div>
 
+    <!-- Penggajian -->
     <div class="col-md-4">
       <div class="card border-0 shadow-sm h-100 hover-card">
         <div class="card-body text-center">
           <h5 class="card-title fw-bold">Penggajian</h5>
           <p class="text-muted">Lihat perhitungan gaji per anggota DPR.</p>
-          <a href="#" class="btn btn-gradient w-100">Kelola</a>
+          <a href="<?= site_url('admin/penggajian') ?>" class="btn btn-gradient w-100">Kelola</a>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Custom Style -->
+<style>
+  .btn-gradient {
+    background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: .5rem;
+    transition: all 0.3s ease;
+  }
+  .btn-gradient:hover {
+    opacity: 0.9;
+    color: #fff;
+  }
+  .hover-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  }
+</style>
 
 <?= $this->endSection() ?>
