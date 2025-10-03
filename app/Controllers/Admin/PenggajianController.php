@@ -108,58 +108,57 @@ class PenggajianController extends BaseController
         ]);
     }
 
-    public function edit($idAnggota, $idKomponen)
-    {
-        $penggajian = $this->penggajianModel
-            ->where('id_anggota', $idAnggota)
-            ->where('id_komponen', $idKomponen)
-            ->first();
+    public function edit($idAnggota)
+{
+    $anggota = $this->anggotaModel->find($idAnggota);
+    $detail  = $this->penggajianModel->getByAnggota($idAnggota);
 
-        if (!$penggajian) {
-            return redirect()->to('/admin/penggajian')->with('error', 'Data tidak ditemukan.');
-        }
-
-        return view('penggajian/edit', [
-            'title'      => 'Ubah Data Penggajian',
-            'penggajian' => $penggajian,
-            'anggota'    => $this->anggotaModel->findAll(),
-            'komponen'   => $this->komponenGajiModel->findAll()
-        ]);
+    if (!$anggota) {
+        return redirect()->to('/admin/penggajian')->with('error', 'Data anggota tidak ditemukan.');
     }
 
-    public function update($idAnggota, $idKomponen)
-    {
-        $newIdAnggota  = $this->request->getPost('id_anggota');
-        $newIdKomponen = $this->request->getPost('id_komponen');
+    return view('penggajian/edit', [
+        'title'    => 'Ubah Penggajian Anggota',
+        'anggota'  => $anggota,
+        'detail'   => $detail,
+        'komponen' => $this->komponenGajiModel->findAll()
+    ]);
+}
 
-        $anggota  = $this->anggotaModel->find($newIdAnggota);
-        $komponen = $this->komponenGajiModel->find($newIdKomponen);
+public function update($idAnggota)
+{
+    $idKomponenBaru = $this->request->getPost('id_komponen');
 
-        if (!$anggota || !$komponen) {
-            return redirect()->back()->with('error', 'Data tidak valid.');
-        }
-
-        if ($komponen['jabatan'] !== 'Semua' && $komponen['jabatan'] !== $anggota['jabatan']) {
-            return redirect()->back()->with('error', 'Komponen gaji tidak sesuai dengan jabatan anggota.');
-        }
-
+    if ($idKomponenBaru) {
+        // Cek duplikasi
         $exists = $this->penggajianModel
-            ->where('id_anggota', $newIdAnggota)
-            ->where('id_komponen', $newIdKomponen)
+            ->where('id_anggota', $idAnggota)
+            ->where('id_komponen', $idKomponenBaru)
             ->first();
 
-        if ($exists && !($newIdAnggota == $idAnggota && $newIdKomponen == $idKomponen)) {
-            return redirect()->back()->with('error', 'Komponen gaji ini sudah ditambahkan.');
+        if ($exists) {
+            return redirect()->back()->with('error', 'Komponen gaji ini sudah ada untuk anggota ini.');
         }
 
-        // updatePenggajian (hapus lama + insert baru)
-        $this->penggajianModel->updatePenggajian($idAnggota, $idKomponen, [
-            'id_anggota'  => $newIdAnggota,
-            'id_komponen' => $newIdKomponen
+        $this->penggajianModel->insert([
+            'id_anggota'  => $idAnggota,
+            'id_komponen' => $idKomponenBaru,
         ]);
-
-        return redirect()->to('/admin/penggajian')->with('success', 'Data penggajian berhasil diperbarui.');
     }
+
+    return redirect()->to('/admin/penggajian')->with('success', 'Data penggajian berhasil diperbarui.');
+}
+
+public function deleteKomponen($idAnggota, $idKomponen)
+{
+    $this->penggajianModel
+        ->where('id_anggota', $idAnggota)
+        ->where('id_komponen', $idKomponen)
+        ->delete();
+
+    return redirect()->back()->with('success', 'Komponen berhasil dihapus.');
+}
+
 
     public function delete($idAnggota)
     {

@@ -37,10 +37,16 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
     $routes->get('penggajian/create', 'PenggajianController::create');
     $routes->post('penggajian/store', 'PenggajianController::store');
     $routes->get('penggajian/detail/(:num)', 'PenggajianController::detail/$1');
-    $routes->get('penggajian/edit/(:num)/(:num)', 'PenggajianController::edit/$1/$2');
-    $routes->post('penggajian/update/(:num)/(:num)', 'PenggajianController::update/$1/$2');
-    $routes->get('penggajian/delete/(:num)/(:num)', 'PenggajianController::delete/$1/$2');
 
+    // Edit per anggota
+    $routes->get('penggajian/edit/(:num)', 'PenggajianController::edit/$1');
+    $routes->post('penggajian/update/(:num)', 'PenggajianController::update/$1');
+
+    // Hapus komponen tertentu
+    $routes->get('penggajian/delete-komponen/(:num)/(:num)', 'PenggajianController::deleteKomponen/$1/$2');
+
+    // Hapus semua penggajian anggota
+    $routes->get('penggajian/delete/(:num)', 'PenggajianController::delete/$1');
 
 // ====================
 // User

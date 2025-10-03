@@ -74,15 +74,16 @@ class PenggajianModel extends Model
     /**
      * Ambil daftar komponen gaji berdasarkan ID anggota
      */
-    public function getByAnggota($idAnggota)
-    {
-        return $this->db->table('penggajian p')
-            ->select('k.nama_komponen, k.kategori, k.nominal, k.satuan')
-            ->join('komponen_gaji k', 'k.id_komponen = p.id_komponen')
-            ->where('p.id_anggota', $idAnggota)
-            ->get()
-            ->getResultArray();
-    }
+    public function getByAnggota($id)
+{
+    return $this->db->table('penggajian p')
+        ->select('p.id_komponen, k.nama_komponen, k.kategori, k.nominal, k.satuan')
+        ->join('komponen_gaji k', 'k.id_komponen = p.id_komponen')
+        ->where('p.id_anggota', $id)
+        ->get()
+        ->getResultArray();
+}
+
 
     /**
      * Insert manual (bypass primaryKey problem)
