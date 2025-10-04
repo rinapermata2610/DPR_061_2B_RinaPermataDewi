@@ -1,6 +1,21 @@
 <?= $this->extend('layouts/admin') ?>
 <?= $this->section('content') ?>
 
+<style>
+  /* Tombol hijau gradasi untuk Simpan */
+  .btn-simpan {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    transition: 0.3s ease-in-out;
+  }
+  .btn-simpan:hover {
+    background: linear-gradient(45deg, #218838, #17a589);
+    color: #fff;
+  }
+</style>
+
 <div class="container mt-4">
   <h3 class="fw-bold mb-3"><?= esc($title) ?></h3>
 
@@ -35,7 +50,7 @@
       </select>
     </div>
 
-    <button type="submit" class="btn btn-gradient">Simpan</button>
+    <button type="submit" class="btn btn-simpan">Simpan</button>
   </form>
 </div>
 

@@ -1,10 +1,25 @@
 <?= $this->extend('layouts/admin') ?>
 <?= $this->section('content') ?>
 
+<style>
+  /* Tombol hijau gradasi untuk tambah penggajian */
+  .btn-tambah {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    transition: 0.3s ease-in-out;
+  }
+  .btn-tambah:hover {
+    background: linear-gradient(45deg, #218838, #17a589);
+    color: #fff;
+  }
+</style>
+
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h3 class="fw-bold"><?= esc($title) ?></h3>
-    <a href="<?= site_url('admin/penggajian/create') ?>" class="btn btn-gradient">+ Tambah Penggajian</a>
+    <a href="<?= site_url('admin/penggajian/create') ?>" class="btn btn-tambah">+ Tambah Penggajian</a>
   </div>
 
   <!-- Flash Message -->
@@ -66,7 +81,7 @@
 
       <!-- Button kembali -->
       <div class="mt-3">
-        <a href="<?= site_url('dashboard') ?>" class="btn btn-secondary">← Kembali</a>
+        <a href="<?= site_url('dashboard') ?>" class="btn btn-secondary">Kembali</a>
       </div>
     </div>
   </div>
