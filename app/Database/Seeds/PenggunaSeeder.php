@@ -12,18 +12,12 @@ class PenggunaSeeder extends Seeder
             [
                 'username' => 'admin',
                 'password' => password_hash('admin123', PASSWORD_DEFAULT),
-                'email'    => 'thoriq@simanjuntak.com',
-                'nama_depan' => 'Thoriq',
-                'nama_belakang' => 'Simanjuntak',
-                'role'     => 'Admin',
+                'role'     => 'admin',
             ],
             [
                 'username' => 'citizen',
                 'password' => password_hash('public123', PASSWORD_DEFAULT),
-                'email'    => 'richard@subakat.com',
-                'nama_depan' => 'Richard',
-                'nama_belakang' => 'Subakat',
-                'role'     => 'Public',
+                'role'     => 'client',
             ],
         ];
 

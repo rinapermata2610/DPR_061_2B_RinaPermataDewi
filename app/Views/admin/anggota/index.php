@@ -1,35 +1,84 @@
 <?= $this->extend('layouts/admin') ?>
 <?= $this->section('content') ?>
 
-<div class="container mt-4">
-  <h3 class="mb-3"><?= esc($title) ?></h3>
+<style>
+  /* Tombol hijau gradasi */
+  .btn-gradient-green {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: #fff;
+    border: none;
+    transition: 0.3s ease-in-out;
+  }
+  .btn-gradient-green:hover {
+    background: linear-gradient(45deg, #218838, #17a589);
+    color: #fff;
+  }
+</style>
 
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="fw-bold"><?= esc($title ?? 'Kelola Data Anggota DPR') ?></h3>
+    <a href="<?= site_url('admin/anggota/create') ?>" class="btn btn-gradient-green">+ Tambah Anggota</a>
+  </div>
+
+  <!-- Search -->
+  <form method="get" action="<?= site_url('admin/anggota') ?>" class="mb-3">
+    <div class="input-group shadow-sm">
+      <input type="text" class="form-control" name="keyword" placeholder="Cari data... (nama, jabatan, ID)">
+      <button class="btn btn-gradient" type="submit">Cari</button>
+    </div>
+  </form>
+
+  <!-- Flash message -->
   <?php if (session()->getFlashdata('success')): ?>
     <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+  <?php elseif (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
   <?php endif; ?>
 
-  <a href="<?= site_url('admin/anggota/create') ?>" class="btn btn-primary mb-3">Tambah Anggota</a>
-
-  <table class="table table-bordered table-striped">
-    <thead class="table-dark">
-      <tr>
-        <th>ID</th>
-        <th>Nama</th>
-        <th>Jabatan</th>
-        <th>Status Pernikahan</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($anggota as $a): ?>
-        <tr>
-          <td><?= esc($a['id_anggota']) ?></td>
-          <td><?= esc(trim(($a['gelar_depan'] ?? '').' '.$a['nama_depan'].' '.$a['nama_belakang'].' '.($a['gelar_belakang'] ?? ''))) ?></td>
-          <td><?= esc($a['jabatan']) ?></td>
-          <td><?= esc($a['status_pernikahan']) ?></td>
-        </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-primary">
+            <tr>
+              <th>ID</th>
+              <th>Nama Lengkap</th>
+              <th>Jabatan</th>
+              <th>Status</th>
+              <th>Anak</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php if (!empty($anggota)): ?>
+              <?php foreach ($anggota as $row): ?>
+                <tr>
+                  <td><?= esc($row['id_anggota']) ?></td>
+                  <td><?= esc(trim($row['gelar_depan'].' '.$row['nama_depan'].' '.$row['nama_belakang'].' '.$row['gelar_belakang'])) ?></td>
+                  <td><?= esc($row['jabatan']) ?></td>
+                  <td><?= esc($row['status_pernikahan']) ?></td>
+                  <td><?= esc($row['jumlah_anak']) ?></td>
+                  <td>
+                    <a href="<?= site_url('admin/anggota/edit/'.$row['id_anggota']) ?>" class="btn btn-sm btn-warning">Ubah</a>
+                    <a href="<?= site_url('admin/anggota/delete/'.$row['id_anggota']) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data ini?')">Hapus</a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <tr>
+                <td colspan="6" class="text-center text-muted">Belum ada data anggota.</td>
+              </tr>
+            <?php endif; ?>
+          </tbody>
+        </table>
+      </div>
+      <!-- Button kembali -->
+      <div class="mt-3">
+        <a href="<?= site_url('admin/dashboard') ?>" class="btn btn-secondary">Kembali</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <?= $this->endSection() ?>

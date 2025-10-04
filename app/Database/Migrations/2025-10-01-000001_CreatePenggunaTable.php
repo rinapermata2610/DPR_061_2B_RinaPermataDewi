@@ -24,31 +24,26 @@ class CreatePenggunaTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
-            'email' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 150,
-            ],
-            'nama_depan' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'null'       => true,
-            ],
-            'nama_belakang' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'null'       => true,
-            ],
             'role' => [
-                'type'    => "ENUM('Admin','Public')",
-                'default' => 'Public',
+                'type'       => 'ENUM("admin","client")',
+                'default'    => 'client',
+            ],
+            'created_at' => [
+                'type'    => 'DATETIME',
+                'null'    => true,
+            ],
+            'updated_at' => [
+                'type'    => 'DATETIME',
+                'null'    => true,
             ],
         ]);
+
         $this->forge->addKey('id_pengguna', true);
-        $this->forge->createTable('pengguna');
+        $this->forge->createTable('pengguna', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('pengguna');
+        $this->forge->dropTable('pengguna', true);
     }
 }

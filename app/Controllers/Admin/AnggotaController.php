@@ -21,7 +21,7 @@ class AnggotaController extends BaseController
             ? $this->anggotaModel->search($keyword)->findAll()
             : $this->anggotaModel->findAll();
 
-        return view('anggota/index', [
+        return view('admin/anggota/index', [
             'title' => 'Kelola Anggota DPR',
             'anggota' => $anggota
         ]);
@@ -29,7 +29,7 @@ class AnggotaController extends BaseController
 
     public function create()
     {
-        return view('anggota/create', ['title' => 'Tambah Data Anggota']);
+        return view('admin/anggota/create', ['title' => 'Tambah Data Anggota']);
     }
 
     public function store()
@@ -51,7 +51,7 @@ class AnggotaController extends BaseController
     {
         $anggota = $this->anggotaModel->find($id);
 
-        return view('anggota/edit', [
+        return view('admin/anggota/edit', [
             'title' => 'Ubah Data Anggota',
             'anggota' => $anggota
         ]);

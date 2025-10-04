@@ -27,12 +27,12 @@ class PenggajianController extends BaseController
             'title'      => 'Kelola Penggajian',
             'penggajian' => $this->penggajianModel->getAllWithTakeHomePay($keyword)
         ];
-        return view('penggajian/index', $data);
+        return view('admin/penggajian/index', $data);
     }
 
     public function create()
     {
-        return view('penggajian/create', [
+        return view('admin/penggajian/create', [
             'title'    => 'Tambah Data Penggajian',
             'anggota'  => $this->anggotaModel->findAll(),
             'komponen' => $this->komponenGajiModel->findAll()
@@ -100,7 +100,7 @@ class PenggajianController extends BaseController
             $takeHome  += $tunjAnak * $jumlahAnak;
         }
 
-        return view('penggajian/detail', [
+        return view('admin/penggajian/detail', [
             'title'         => 'Detail Penggajian',
             'anggota'       => $anggota,
             'detail'        => $detail,
@@ -117,7 +117,7 @@ class PenggajianController extends BaseController
         return redirect()->to('/admin/penggajian')->with('error', 'Data anggota tidak ditemukan.');
     }
 
-    return view('penggajian/edit', [
+    return view('admin/penggajian/edit', [
         'title'    => 'Ubah Penggajian Anggota',
         'anggota'  => $anggota,
         'detail'   => $detail,

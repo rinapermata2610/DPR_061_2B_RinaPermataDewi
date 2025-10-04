@@ -79,7 +79,7 @@
 
       <!-- Button kembali -->
       <div class="mt-3">
-        <a href="<?= site_url('dashboard') ?>" class="btn btn-secondary">Kembali</a>
+        <a href="<?= site_url('admin/dashboard') ?>" class="btn btn-secondary">Kembali</a>
       </div>
     </div>
   </div>

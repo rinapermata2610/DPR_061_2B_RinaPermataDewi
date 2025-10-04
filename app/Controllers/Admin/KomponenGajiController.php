@@ -21,7 +21,7 @@ class KomponenGajiController extends BaseController
             ? $this->komponenModel->search($keyword)->findAll()
             : $this->komponenModel->findAll();
 
-        return view('komponen/index', [
+        return view('admin/komponen/index', [
             'title' => 'Kelola Komponen Gaji & Tunjangan',
             'komponen' => $komponen
         ]);
@@ -29,7 +29,7 @@ class KomponenGajiController extends BaseController
 
     public function create()
     {
-        return view('komponen/create', ['title' => 'Tambah Komponen Gaji']);
+        return view('admin/komponen/create', ['title' => 'Tambah Komponen Gaji']);
     }
 
     public function store()
@@ -50,7 +50,7 @@ class KomponenGajiController extends BaseController
     {
         $komponen = $this->komponenModel->find($id);
 
-        return view('komponen/edit', [
+        return view('admin/komponen/edit', [
             'title' => 'Ubah Komponen Gaji',
             'komponen' => $komponen
         ]);
